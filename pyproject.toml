@@ -1,0 +1,29 @@
+[project]
+name = "mlktools"
+version = "0.1.0"
+authors = [
+    {name = "Michael Kaufman", email = "mlkaufman@gmail.com"},
+]
+description = "A set of cli tools to perform common tasks in the informatics space"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+]
+dependencies = [
+    "typer>=0.6.1",
+    "rich>=12.6.0"
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.scripts]
+mlktools = "mlktools.mlktools:app"
