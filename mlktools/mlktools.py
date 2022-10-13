@@ -34,32 +34,32 @@ def bashdrop(filename: str):
     """Create a bash script to drop an LSF HPC job template shell script into a directory."""
     f = open(filename + ".sh", "w+")
     f.writelines(f"""#! /usr/bin/env bash
-            ### -- specify queue -- 
-            #BSUB -q rna
+### -- specify queue -- 
+#BSUB -q rna
 
-            ### -- set the job Name -- 
-            #BSUB -J {filename}
+### -- set the job Name -- 
+#BSUB -J {filename}
 
-            ### -- cores -- 
-            #BSUB -n 24 
+### -- cores -- 
+#BSUB -n 24 
 
-            ### -- specify memory -- 
-            #BSUB -R "span[hosts=1]"
-            #BSUB -R "select[mem>100] rusage[mem=100]"
+### -- specify memory -- 
+#BSUB -R "span[hosts=1]"
+#BSUB -R "select[mem>100] rusage[mem=100]"
 
-            ### -- set walltime limit: hh:mm -- 
-            #BSUB -W 48:00 
+### -- set walltime limit: hh:mm -- 
+#BSUB -W 48:00 
 
-            ### -- set the email address -- 
-            #BSUB -u michael.kaufman@cuanschutz.edu
+### -- set the email address -- 
+#BSUB -u michael.kaufman@cuanschutz.edu
 
-            ### -- send notification at completion -- 
-            #BSUB -N 
+### -- send notification at completion -- 
+#BSUB -N 
 
-            ### -- Specify the output and error file. %J is the job-id -- 
-            ### -- -o and -e mean append, -oo and -eo mean overwrite -- 
-            #BSUB -o bsub_output_{filename}.out 
-            #BSUB -e bsub_error_{filename}.err """)
+### -- Specify the output and error file. %J is the job-id -- 
+### -- -o and -e mean append, -oo and -eo mean overwrite -- 
+#BSUB -o bsub_output_{filename}.out 
+#BSUB -e bsub_error_{filename}.err """)
     f.close()
 
 if __name__ == "__main__":
