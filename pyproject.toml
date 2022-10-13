@@ -7,15 +7,7 @@ authors = [
 description = "A set of cli tools to perform common tasks in the informatics space"
 readme = "README.md"
 requires-python = ">=3.8"
-classifiers = [
-    "Development Status :: 3 - Alpha",
-    "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-]
+
 dependencies = [
     "typer>=0.6.1",
     "rich>=12.6.0"
