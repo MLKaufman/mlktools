@@ -30,7 +30,7 @@ def spatialcleanup():
             print(file)
 
 @app.command()
-def bashdrop(filename: str):
+def bashdrop(filename: str, queue: str = "rna", cores: int = 12, ram: int = 50, email: str= "michael.kaufman@cuanschutz.edu", command: str = "echo 'hello world'"):
     """Create a bash script to drop an LSF HPC job template shell script into a directory."""
     f = open(filename + ".sh", "w+")
     f.writelines(f"""#! /usr/bin/env bash
@@ -41,7 +41,7 @@ def bashdrop(filename: str):
 #BSUB -J {filename}
 
 ### -- cores -- 
-#BSUB -n 24 
+#BSUB -n {cores} 
 
 ### -- specify memory -- 
 #BSUB -R "span[hosts=1]"
@@ -51,15 +51,20 @@ def bashdrop(filename: str):
 #BSUB -W 48:00 
 
 ### -- set the email address -- 
-#BSUB -u michael.kaufman@cuanschutz.edu
+#BSUB -u {email}
 
 ### -- send notification at completion -- 
 #BSUB -N 
 
 ### -- Specify the output and error file. %J is the job-id -- 
 ### -- -o and -e mean append, -oo and -eo mean overwrite -- 
-#BSUB -o bsub_output_{filename}.out 
-#BSUB -e bsub_error_{filename}.err """)
+#BSUB -o {filename}_output_bsub.out 
+#BSUB -e {filename}_error_bsub.err
+
+### -- load modules or software required --
+
+### -- run the command --
+{command}""")
     f.close()
 
 if __name__ == "__main__":
