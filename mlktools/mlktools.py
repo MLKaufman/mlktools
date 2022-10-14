@@ -6,6 +6,13 @@ from rich import print
 app = typer.Typer()
 
 @app.command()
+def newproject():
+    print("Creating new project")
+    print(os.getcwd())
+    os.mkdir("pipeline")
+    os.mkdir("raw_data")
+
+@app.command()
 def sccleanup(item: str):
     """Clean up outputs from CellRanger scRNA-seq processing"""
     #check that we are in root directory of cellranger outs
@@ -66,6 +73,8 @@ def bashdrop(filename: str, queue: str = "rna", cores: int = 12, ram: int = 50, 
 ### -- run the command --
 {command}""")
     f.close()
+
+
 
 if __name__ == "__main__":
     app()
