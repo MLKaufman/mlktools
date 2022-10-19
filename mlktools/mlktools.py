@@ -17,7 +17,8 @@ def sccleanup(item: str):
     """Clean up outputs from CellRanger scRNA-seq processing"""
     #check that we are in root directory of cellranger outs
     #
-    print(f"Creating item: {item}")
+    print(f"Creating item: {item}", 1)
+    print(os.getcwd())
 
 @app.command()
 def spatialcleanup():
@@ -42,7 +43,7 @@ def bashdrop(filename: str, queue: str = "rna", cores: int = 12, ram: int = 50, 
     f = open(filename + ".sh", "w+")
     f.writelines(f"""#! /usr/bin/env bash
 ### -- specify queue -- 
-#BSUB -q rna
+#BSUB -q {queue}
 
 ### -- set the job Name -- 
 #BSUB -J {filename}
@@ -52,7 +53,7 @@ def bashdrop(filename: str, queue: str = "rna", cores: int = 12, ram: int = 50, 
 
 ### -- specify memory -- 
 #BSUB -R "span[hosts=1]"
-#BSUB -R "select[mem>100] rusage[mem=100]"
+#BSUB -R "select[mem>{ram}] rusage[mem={ram}]"
 
 ### -- set walltime limit: hh:mm -- 
 #BSUB -W 48:00 
@@ -65,8 +66,8 @@ def bashdrop(filename: str, queue: str = "rna", cores: int = 12, ram: int = 50, 
 
 ### -- Specify the output and error file. %J is the job-id -- 
 ### -- -o and -e mean append, -oo and -eo mean overwrite -- 
-#BSUB -o {filename}_output_bsub.out 
-#BSUB -e {filename}_error_bsub.err
+#BSUB -o {filename}_bsub.out 
+#BSUB -e {filename}_bsub.err
 
 ### -- load modules or software required --
 
